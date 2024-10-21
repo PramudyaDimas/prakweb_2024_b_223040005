@@ -1,7 +1,7 @@
-<?php
+<?php 
 
 class About {
-    public function index($nama = 'Pram', $pekerjaan = 'guru') {
+    public function index($nama = 'Pramudya', $pekerjaan = 'guru') {
         echo "Hallo, nama saya  $nama, saya adalah seorang $pekerjaan";
 class About extends Controller {
     public function index($nama = 'Pram', $pekerjaan = 'guru', $umur = 45) {
@@ -25,5 +25,5 @@ class About extends Controller {
         $this->view('templates/footer');
     }
 }
-}
+    }
 }
