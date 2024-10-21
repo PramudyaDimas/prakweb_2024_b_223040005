@@ -1,30 +1,15 @@
 <?php
 
-
-class Mahasiswa_model {
+class Mahasiswa_model
+{
     private $table = 'mahasiswa';
     private $db;
 
-    private $dbh; //database handler
-    private $stmt;
-    public function  __construct() {
-        //data source name
-        $dsn = 'mysql:host=localhost;dbname=phpmvc';
-        try {
-            $this->dbh = new PDO($dsn, 'root', '');
-        }catch(PDOException $e) {
-            die($e->getMessage());
-        }
     public function __construct()
     {
         $this->db = new Database;
     }
 
-       public function  getAllMahasiswa() {
-        $this->stmt = $this->dbh->prepare('SELECT * FROM mahasiswa');
-        $this->stmt->execute();
-        return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
-       }
     public function getAllMahasiswa()
     {
         $this->db->query('SELECT * FROM ' . $this->table);
@@ -36,5 +21,16 @@ class Mahasiswa_model {
         $this->db->bind('id', $id);
         return $this->db->single();
     }
-}
+    public function tambahDataMahasiswa($data){
+        $query = "INSERT INTO mahasiswa (nama, nrp, email, jurusan)
+        VALUES 
+        (:nama, :nrp, :email, :jurusan)";
+        $this->db->query($query);
+        $this->db->bind('nama', $data['nama']);
+        $this->db->bind('nrp', $data['nrp']);
+        $this->db->bind('email', $data['email']);
+        $this->db->bind('jurusan', $data['jurusan']);
+        $this->db->execute();
+        return $this->db->rowCount();
+    }
 }
